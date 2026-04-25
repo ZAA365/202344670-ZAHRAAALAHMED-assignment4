@@ -1,8 +1,5 @@
 # 202344670-ZAHRAAALAHMED-assignment4
 
-# 202344670-ZAHRAAALAHMED-assignment3
-# Assignment 3 – Advanced Functionality
-
 ## Project Description
 This is the third version of my personal portfolio website, building on the interactive features from Assignment 2.
 The goal of this version is to add **advanced functionality, external integrations, and complex logic** to make the web application more powerful and professional.
