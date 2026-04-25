@@ -98,12 +98,36 @@ git clone https://github.com/YOUR_USERNAME/202344670-ZAHRAAALAHMED-assignment3.g
 - **Login/Logout:** Click "Login" in the nav, enter a name, and refresh the page
 - **Timer:** Watch the timer bar below the navigation count your visit time
 
-5. **Test previous Assignment 2 features**
-- Enter your name in the greeting section
-- Click "Greet Me"
-- Toggle dark mode 🌙
-- Refresh page to check saved data (name, theme, and login status)
+---
+## Test Assignment 4 New Features
 
+### GitHub Caching
+Fetch the same username twice – notice faster second load and cache indicator
+
+### Save Favorites
+Click "⭐ Save to Favorites" on any repo, check Saved Repositories section
+
+### Character Counter
+Type in contact message field – watch counter update in real-time
+
+### Export Data
+Click "📤 Export Data" button – downloads your settings as JSON
+
+### Project Counter
+Use filter buttons – see "Showing X of Y projects" appear
+
+---
+## Test Previous Features (Assignments 2 & 3)
+
+| Feature | Action |
+|---------|--------|
+| Greeting | Enter name in greeting section → personalized time-based greeting |
+| Dark Mode | Toggle dark mode → theme saves on refresh |
+| GitHub API | Enter "octocat" to see repositories |
+| Filter Projects | Click "Design" or "Development" |
+| Form Validation | Try submitting empty fields |
+| Login/Logout | Click Login button in navigation |
+| Timer | Watch timer count your visit time |
 ---
 
 ## AI Usage Summary
@@ -142,7 +166,33 @@ You can deploy the project using:
 - AI was used as a learning tool and all code was reviewed, modified, and fully understood
 
 ---
+## Future Improvements
 
+- Add import functionality to restore saved data
+- Add option to remove individual saved repositories
+- Add more GitHub data (contributions, followers, etc.)
+- Add form submission to a real backend
+- Add user account system with proper authentication
+---
+## Browser Support
+
+| Browser | Support |
+|---------|---------|
+| Google Chrome | ✅ Recommended |
+| Mozilla Firefox | ✅ |
+| Microsoft Edge | ✅ |
+| Safari | ✅ (requires `-webkit-backdrop-filter`) |
+
+*Requires JavaScript enabled*
+---
+## Optional Deployment
+
+You can deploy the project using:
+
+- GitHub Pages
+- Netlify
+- Vercel
+---
 ## Author
 **Zahraa AL-Ahmed**
 Computer Science Student – KFUPM

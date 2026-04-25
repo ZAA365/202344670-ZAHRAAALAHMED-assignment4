@@ -5,7 +5,8 @@
 - **Technologies**: HTML, CSS, JavaScript
 - **Features**: Dark/Light mode toggle, greeting feature, localStorage, responsive design
 - **Design Inspiration**: Apple.com - minimal, elegant, premium feel
-- **New in v3**: API integration, filtering/sorting, enhanced validation, state management, performance optimization
+- **New in v4**: API caching, saved repositories, character counter, data export, project counter
+
 ---
 
 ## File Structure
@@ -195,6 +196,7 @@
 - Contact form does not send data to a real server (frontend only)
 - GitHub API has a rate limit of 60 requests/hour for unauthenticated users
 - Login system is simulated (no real authentication)
+- Export only (no import feature yet)
 ---
 
 ## Browser Support
@@ -207,5 +209,5 @@
 ---
 
 ## Personal Reflection
-"I learned how to connect my website to external APIs using fetch, how to implement thorough form validation with multiple rules, and how to manage application state across page refreshes. I also improved my code organization by separating JavaScript into clear, well-commented sections. The most challenging part was understanding error handling for the API, but it taught me a lot about real-world web development."
+"In Assignment 4, I learned how to make my web application more professional by adding caching to reduce API calls, allowing users to save favorites, providing real-time form feedback with a character counter, and enabling data export for backup purposes. The most challenging part was implementing the caching system while maintaining dark mode compatibility."
 — Zahraa AL-Ahmed, CS Student at KFUPM
