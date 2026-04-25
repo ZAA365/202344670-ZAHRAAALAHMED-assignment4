@@ -256,8 +256,21 @@ function initGitHub() {
     });
 }
 function fetchGitHubRepos(user) {
-    githubError.textContent = ''; githubResults.innerHTML = '';
-    githubLoading.classList.remove('hidden'); githubResults.classList.add('hidden');
+    const cacheKey = `github-cache-${user}`;
+    const cachedData = localStorage.getItem(cacheKey);
+    const cachedTime = localStorage.getItem(`${cacheKey}-time`);
+    
+    // Check if cache exists and is less than 5 minutes old
+    if (cachedData && cachedTime && (Date.now() - parseInt(cachedTime)) < 300000) {
+        displayReposFromCache(JSON.parse(cachedData));
+        return;
+    }
+    
+    githubError.textContent = ''; 
+    githubResults.innerHTML = '';
+    githubLoading.classList.remove('hidden'); 
+    githubResults.classList.add('hidden');
+    
     fetch('https://api.github.com/users/' + encodeURIComponent(user) + '/repos?sort=updated&per_page=10')
         .then(function(res) {
             if (!res.ok) {
@@ -268,40 +281,56 @@ function fetchGitHubRepos(user) {
             return res.json();
         })
         .then(function(repos) {
-            githubLoading.classList.add('hidden');
-            // Add timestamp
-            
-            const timestamp = document.createElement('p');
-            timestamp.className = 'info-text';
-            timestamp.style.marginTop = '15px';
-            timestamp.style.textAlign = 'center';
-            const now = new Date();
-            timestamp.textContent = `🕐 Last updated: ${now.toLocaleTimeString()}`;
-            githubResults.parentNode.insertBefore(timestamp, githubResults.nextSibling);
-            localStorage.setItem('github-last-updated', now.toLocaleTimeString());
-            if (repos.length === 0) { githubError.textContent = 'This user has no public repositories.'; return; }
-            githubResults.innerHTML = '';
-            repos.forEach(function(repo) {
-                var card = document.createElement('div'); card.className = 'repo-card';
-                card.innerHTML = '<h3>' + repo.name + '</h3>' +
-                    '<p>' + (repo.description || 'No description available.') + '</p>' +
-                    '<div class="repo-meta"><span>' + (repo.language || 'Unknown') + '</span><span>⭐ ' + repo.stargazers_count + '</span></div>' +
-                    '<a href="' + repo.html_url + '" target="_blank">View on GitHub →</a>';
-                    // Add save button
-                    const saveBtn = document.createElement('button');
-                    saveBtn.textContent = '⭐ Save to Favorites';
-                    saveBtn.className = 'save-repo-btn';
-                    saveBtn.style.cssText = 'background: none; border: 1px solid #8100cc; border-radius: 980px; padding: 6px 12px; font-size: 12px; margin-top: 12px; cursor: pointer; color: #8100cc;';
-                    saveBtn.onclick = function() { saveToFavorites(repo.name, repo.html_url); };
-                    card.appendChild(saveBtn);
-                githubResults.appendChild(card);
-            });
-            githubResults.classList.remove('hidden');
+            // Save to cache
+            localStorage.setItem(cacheKey, JSON.stringify(repos));
+            localStorage.setItem(`${cacheKey}-time`, Date.now().toString());
+            displayReposFromCache(repos);
         })
         .catch(function(err) {
             githubLoading.classList.add('hidden');
             githubError.textContent = '⚠ ' + err.message;
         });
+}
+
+function displayReposFromCache(repos) {
+    githubLoading.classList.add('hidden');
+    if (repos.length === 0) { 
+        githubError.textContent = 'This user has no public repositories.'; 
+        return; 
+    }
+    githubResults.innerHTML = '';
+    repos.forEach(function(repo) {
+        var card = document.createElement('div'); 
+        card.className = 'repo-card';
+        card.innerHTML = '<h3>' + repo.name + '</h3>' +
+            '<p>' + (repo.description || 'No description available.') + '</p>' +
+            '<div class="repo-meta"><span>' + (repo.language || 'Unknown') + '</span><span>⭐ ' + repo.stargazers_count + '</span></div>' +
+            '<a href="' + repo.html_url + '" target="_blank">View on GitHub →</a>';
+        
+        // Add save button
+        const saveBtn = document.createElement('button');
+        saveBtn.textContent = '⭐ Save to Favorites';
+        saveBtn.className = 'save-repo-btn';
+        saveBtn.style.cssText = 'background: none; border: 1px solid #8100cc; border-radius: 980px; padding: 6px 12px; font-size: 12px; margin-top: 12px; cursor: pointer; color: #8100cc;';
+        saveBtn.onclick = function() { saveToFavorites(repo.name, repo.html_url); };
+        card.appendChild(saveBtn);
+        
+        githubResults.appendChild(card);
+    });
+    githubResults.classList.remove('hidden');
+    
+    // Add timestamp
+    let timestamp = document.getElementById('github-timestamp');
+    if (!timestamp) {
+        timestamp = document.createElement('p');
+        timestamp.id = 'github-timestamp';
+        timestamp.className = 'info-text';
+        timestamp.style.marginTop = '15px';
+        timestamp.style.textAlign = 'center';
+        githubResults.parentNode.insertBefore(timestamp, githubResults.nextSibling);
+    }
+    const now = new Date();
+    timestamp.textContent = `🕐 Last updated: ${now.toLocaleTimeString()} (cached for 5 min)`;
 }
 
 // --- 8. CONTACT FORM VALIDATION ---
@@ -367,6 +396,41 @@ function initContactForm() {
     }
     contactMessage.addEventListener('input', updateCharCount);
     updateCharCount();
+
+    // --- EXPORT DATA FUNCTIONALITY ---
+function exportUserData() {
+    const data = {
+        exportDate: new Date().toISOString(),
+        exportDateReadable: new Date().toString(),
+        settings: {
+            theme: localStorage.getItem('portfolio-theme') || 'light',
+            savedUsername: localStorage.getItem('portfolio-username') || 'not set',
+            authUser: localStorage.getItem('portfolio-auth-user') || 'not logged in'
+        },
+        savedRepositories: JSON.parse(localStorage.getItem('saved-github-repos') || '[]'),
+        visitStats: {
+            timerSeconds: timerSeconds,
+            timerFormatted: timerDisplay.textContent
+        }
+    };
+    
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `portfolio-export-${new Date().toISOString().slice(0,19)}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    
+    // Show success message
+    const exportMsg = document.getElementById('export-msg');
+    if (exportMsg) {
+        exportMsg.textContent = '✓ Data exported successfully!';
+        setTimeout(() => { exportMsg.textContent = ''; }, 3000);
+    }
+}
 }
 
 // --- 9. INITIALIZE EVERYTHING ---
@@ -378,6 +442,11 @@ document.addEventListener('DOMContentLoaded', function() {
     initProjectFilters();
     initGitHub();
     displaySavedRepos();
+    // Export button
+    const exportBtn = document.getElementById('export-data-btn');
+    if (exportBtn) {
+        exportBtn.addEventListener('click', exportUserData);
+    }
     initContactForm();
 
     themeToggle.addEventListener('click', toggleTheme);

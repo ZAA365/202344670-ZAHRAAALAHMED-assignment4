@@ -26,10 +26,11 @@
             <a href="#ContactMe">Contacts</a>
             <button id="auth-btn" class="nav-auth-btn">Login</button>
         </nav>
-        
-        <!-- TIMER BAR -->
-        <div class="timer-bar" id="timer-bar">
-        <span id="timer-display">⏱ 0m 0s</span>
+        <!-- Export Button in Timer Bar -->
+        <div style="display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+            <span id="timer-display">⏱ 0m 0s</span>
+            <button id="export-data-btn" class="nav-auth-btn" style="font-size: 12px;">📤 Export Data</button>
+            <p id="export-msg" class="success-text" style="font-size: 12px; margin: 5px 0 0;"></p>
         </div>
         <!-- AUTHENTICATION PANEL -->
         <div class="auth-panel hidden" id="auth-panel">
