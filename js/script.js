@@ -187,7 +187,7 @@ function applyFilterAndSort(filter) {
             return b.dataset.name.localeCompare(a.dataset.name);
         });
     }
- 
+
     // Show + append sorted rows
     visibleRows.forEach(function(row) {
         row.classList.remove('hidden-row');
@@ -206,6 +206,47 @@ filterInfo.textContent = `Showing ${visibleRows.length} of ${rows.length} projec
     noProjectsMsg.classList.toggle('hidden', visibleRows.length > 0);
 }
 
+// --- SAVE TO FAVORITES FUNCTIONALITY ---
+const SAVED_REPOS_KEY = 'saved-github-repos';
+
+function saveToFavorites(repoName, repoUrl) {
+    let saved = JSON.parse(localStorage.getItem(SAVED_REPOS_KEY) || '[]');
+    if (!saved.some(repo => repo.name === repoName)) {
+        saved.push({ name: repoName, url: repoUrl });
+        localStorage.setItem(SAVED_REPOS_KEY, JSON.stringify(saved));
+        displaySavedRepos();
+        showTemporaryMessage(`✓ "${repoName}" saved!`);
+    } else {
+        showTemporaryMessage(`"${repoName}" is already saved!`);
+    }
+}
+
+function showTemporaryMessage(msg) {
+    let tempMsg = document.getElementById('temp-save-msg');
+    if (!tempMsg) {
+        tempMsg = document.createElement('p');
+        tempMsg.id = 'temp-save-msg';
+        tempMsg.className = 'success-text';
+        tempMsg.style.fontSize = '13px';
+        const githubSection = document.getElementById('GitHub');
+        githubSection.appendChild(tempMsg);
+    }
+    tempMsg.textContent = msg;
+    setTimeout(() => { tempMsg.textContent = ''; }, 2000);
+}
+
+function displaySavedRepos() {
+    const saved = JSON.parse(localStorage.getItem(SAVED_REPOS_KEY) || '[]');
+    let container = document.getElementById('saved-repos-list');
+    if (!container) return;
+    if (saved.length === 0) {
+        container.innerHTML = '<p class="info-text">No saved repositories yet. Use ⭐ Save buttons above!</p>';
+        return;
+    }
+    container.innerHTML = saved.map(repo => 
+        `<li style="margin-bottom: 8px;"><a href="${repo.url}" target="_blank" style="color: #8100cc; text-decoration: none;">⭐ ${repo.name}</a></li>`
+    ).join('');
+}
 // --- 7. GITHUB API INTEGRATION ---
 function initGitHub() {
     fetchReposBtn.addEventListener('click', function() {
@@ -246,6 +287,13 @@ function fetchGitHubRepos(user) {
                     '<p>' + (repo.description || 'No description available.') + '</p>' +
                     '<div class="repo-meta"><span>' + (repo.language || 'Unknown') + '</span><span>⭐ ' + repo.stargazers_count + '</span></div>' +
                     '<a href="' + repo.html_url + '" target="_blank">View on GitHub →</a>';
+                    // Add save button
+                    const saveBtn = document.createElement('button');
+                    saveBtn.textContent = '⭐ Save to Favorites';
+                    saveBtn.className = 'save-repo-btn';
+                    saveBtn.style.cssText = 'background: none; border: 1px solid #8100cc; border-radius: 980px; padding: 6px 12px; font-size: 12px; margin-top: 12px; cursor: pointer; color: #8100cc;';
+                    saveBtn.onclick = function() { saveToFavorites(repo.name, repo.html_url); };
+                    card.appendChild(saveBtn);
                 githubResults.appendChild(card);
             });
             githubResults.classList.remove('hidden');
@@ -296,6 +344,29 @@ function initContactForm() {
     contactName.addEventListener('blur', validateName);
     contactEmail.addEventListener('blur', validateEmail);
     contactMessage.addEventListener('blur', validateMessage);
+    // Character counter for message
+    const charCounter = document.createElement('small');
+    charCounter.className = 'char-counter';
+    charCounter.style.display = 'block';
+    charCounter.style.textAlign = 'right';
+    charCounter.style.fontSize = '12px';
+    charCounter.style.marginTop = '5px';
+    charCounter.style.color = '#86868b';
+    contactMessage.parentNode.appendChild(charCounter);
+
+    function updateCharCount() {
+        const len = contactMessage.value.length;
+        charCounter.textContent = `${len}/1000 characters`;
+        if (len > 1000) {
+            charCounter.style.color = '#ff3b30';
+            contactMessage.value = contactMessage.value.slice(0, 1000);
+            updateCharCount();
+        } else {
+            charCounter.style.color = '#86868b';
+        }
+    }
+    contactMessage.addEventListener('input', updateCharCount);
+    updateCharCount();
 }
 
 // --- 9. INITIALIZE EVERYTHING ---
@@ -306,6 +377,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initAuth();
     initProjectFilters();
     initGitHub();
+    displaySavedRepos();
     initContactForm();
 
     themeToggle.addEventListener('click', toggleTheme);
