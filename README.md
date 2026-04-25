@@ -1,29 +1,65 @@
 # 202344670-ZAHRAAALAHMED-assignment4
 
 ## Project Description
-This is the third version of my personal portfolio website, building on the interactive features from Assignment 2.
-The goal of this version is to add **advanced functionality, external integrations, and complex logic** to make the web application more powerful and professional.
+This is the fourth version of my personal portfolio website, building on the interactive features from Assignments 2 and 3.
 
-In addition to the previous features (greeting system, dark mode, and localStorage), this version introduces **GitHub API integration**, **project filtering and sorting**, **enhanced form validation**, **state management**, and **performance optimizations**.
+The goal of this version is to add **advanced functionality, external integrations, complex logic, and data management** to make the web application more powerful and professional.
+
+In addition to the previous features (greeting system, dark mode, localStorage, GitHub API, filtering, sorting, and form validation), this version introduces **API caching**, **save to favorites**, **character counter**, **data export**, **project counter**, and **scroll to top button**.
+
+---
+
+## Live Demo
+🔗 **Deployed URL:** [https://zaa365.github.io/202344670-ZAHRAAALAHMED-assignment4/](https://zaa365.github.io/202344670-ZAHRAAALAHMED-assignment4/)
 
 ---
 
 ## Features
 
-### API Integration (NEW)
+### API Integration (From Assgn 3)
 - Connects to the GitHub Public API to fetch real-time repository data
 - Users can enter any GitHub username to view their public repositories
 - Displays repo name, description, language, and star count in elegant cards
 - Includes proper error handling (user not found, API rate limits, network errors)
 - Shows a loading spinner while fetching data
 
-### Complex Logic (NEW)
+### GitHub API Caching (NEW in v4)
+- Results cached for 5 minutes in localStorage with cache indicator
+- Reduces API calls and respects GitHub's rate limits
+- Shows "cached for 5 min" on timestamp
+
+### Save to Favorites (NEW in v4)
+- Users can save any GitHub repository to favorites, stored in localStorage
+- Saved repos persist across sessions
+- Dedicated "Saved Repositories" section displays all favorites
+- Prevents duplicate saves with user feedback
+
+### Character Counter (NEW in v4)
+- Real-time "XX/1000 characters" counter under message field
+- Turns red when approaching/exceeding the 1000-character limit
+- Prevents users from typing beyond the limit
+
+### Data Export (NEW in v4)
+- One-click export of all user data (theme, settings, saved repos, timer) as JSON file
+- Professional backup feature for user settings
+- Timestamped filename for easy organization
+
+### Project Counter (NEW in v4)
+- Live "Showing X of Y projects" display when filtering projects
+- Updates automatically when filtering or sorting
+
+### Scroll to Top Button (NEW in v4 - Innovation)
+- Appears after scrolling 300px
+- Smooth scroll animation back to top
+- Fully styled for both light and dark modes
+
+### Complex Logic (From Assgn 3)
 - **Project Filtering:** Filter projects by category ("All", "Design", "Development")
 - **Project Sorting:** Sort projects alphabetically (A–Z or Z–A)
 - **Enhanced Contact Form Validation:** Multi-rule validation for name (letters only, min 2 chars), email (format check), and message (min 10 chars)
 - Real-time error feedback when user leaves a field or tries to submit
 
-### State Management (NEW)
+### State Management (From Assgn 3)
 - **Simulated Login/Logout:** Users can "log in" with a username; status is saved and remembered across page refreshes
 - **Visit Timer:** Counts how long a visitor has been on the site (survives page refresh using sessionStorage)
 - Previous state features (dark mode and greeting name) are still saved using localStorage
@@ -37,16 +73,19 @@ In addition to the previous features (greeting system, dark mode, and localStora
 - Saves user greeting name and theme preference (localStorage)
 - Saves login status (localStorage)
 - Saves visit timer seconds (sessionStorage)
+- Saves GitHub API cache (localStorage, 5 min expiry)
+- Saves favorite repositories (localStorage)
 
 ### Dark/Light Mode Toggle (From Assgn 2)
 - Users can switch between themes
 - Theme preference is saved automatically
-- All new features (API cards, filters, auth panel) fully support dark mode
+- All new features (API cards, filters, auth panel, save button, export button, counter, scroll button) fully support dark mode
 
-### Performance Optimizations (NEW)
+### Performance Optimizations (From Assgn 3 + NEW)
 - Images use `loading="lazy"` for faster initial page load
 - Removed inline styles from HTML (moved to external CSS for better caching)
 - Clean, non-repetitive CSS code
+- API response caching (5-minute expiry)
 
 ### Animations & Transitions
 - Smooth transitions for theme switching
@@ -59,15 +98,11 @@ In addition to the previous features (greeting system, dark mode, and localStora
 
 ---
 
-## Setup Instructions (How to Run Locally)
-1. **Download or clone the repository**
-```bash
-git clone https://github.com/YOUR_USERNAME/202344670-ZAHRAAALAHMED-assignment3.git
-```
+## Folder Structure
 
 2. **Ensure folder structure is correct:**
 ```
-202344670-ZAHRAAALAHMED-assignment3/
+202344670-ZAHRAAALAHMED-assignment4/
 ├── index.html
 ├── css/
 │   └── styles.css
