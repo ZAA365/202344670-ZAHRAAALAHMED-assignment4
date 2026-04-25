@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <!-- DOCUMENT SETUP & STYLES -->
+        <!-- Links to external CSS file -->
+        <!-- Internal CSS for paragraphs and sections -->
+        <!-- Character encoding and page title -->
+        <link href="css/styles.css" rel="stylesheet">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+        <title>Zahraa AL-Ahmed - Portfolio</title>
+    </head>
+    
+    <body>
+        <!-- PAGE HEADER -->
+        <!-- Contains my name as main banner -->
+        <header>
+        <h1>ZAHRAA AL-AHMED</h1>
+        </header>
+        <!-- NAVIGATION SECTION -->
+        <nav class="navigation">
+            <a href="#AboutMe">About</a>
+            <a href="#Projects">Projects</a>
+            <a href="#GitHub">GitHub</a>
+            <a href="#ContactMe">Contacts</a>
+            <button id="auth-btn" class="nav-auth-btn">Login</button>
+        </nav>
+        
+        <!-- TIMER BAR -->
+        <div class="timer-bar" id="timer-bar">
+        <span id="timer-display">⏱ 0m 0s</span>
+        </div>
+        <!-- AUTHENTICATION PANEL -->
+        <div class="auth-panel hidden" id="auth-panel">
+        <div class="auth-panel-inner">
+            <label for="auth-username">Username:</label>
+            <input type="text" id="auth-username" placeholder="Enter any username">
+            <button id="auth-submit-btn" class="btn-primary">Sign In</button>
+            <button id="auth-cancel-btn" class="btn-secondary">Cancel</button>
+        </div>
+    </div>
+        <!-- DARK MODE BUTTON -->
+        <!-- Button to switch between light and dark themes -->
+        <!-- JavaScript file linked here -->
+        <button id="theme-toggle">🌙 Dark Mode</button>
+        
+        <!-- INTRODUCTION SECTION -->
+        <!-- Personal introduction with welcome messages -->
+        <main>
+        <h1>Zahraa Adel AL-Ahmed</h1>
+        <p>
+            Welcome to my personal portfolio website!
+        </p>
+        <!-- GREETING FEATURE -->
+        <section id="greeting-section">
+            <h2>Welcome 👋</h2>
+            
+            <input type="text" id="username" placeholder="Enter your name">
+            <button id="greet-btn">Greet Me</button>
+            
+            <p id="greeting-message"></p>
+            <p id="error-message" style="color: red;"></p>
+        </section>
+        <p>
+            Here you can find some information about me and my projects.
+        </p>
+        
+        <!-- ABOUT ME SECTION -->
+        <!-- Box containing personal background information -->
+        <!-- Includes my studies, interests, and favorite quote -->
+        <section id="AboutMe">
+            <h2>About Me</h2>
+            <p>
+                I am a Saudi CS junior KFUPM student. I am interested in web development as I currently taking my first web design course.
+                I also like to draw by pencil and read books. My favorite quote is "Learn to Earn". 
+            </p>
+        </section>
+        <!-- PROJECTS SECTION -->
+        <!-- Displays my projects in a table format -->
+        <!-- Each project has title, description, and image -->
+        <section id="Projects">
+            <h2>Projects</h2>
+            <p>
+                Below are some of the projects I have worked on in my CS courses. I am proud of these projects and I hope to continue learning and improving my skills in the future.
+            </p>
+            <!-- THIS FILTER/SORT BLOCK HERE -->
+            <div class="filter-controls">
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="design">Design</button>
+                    <button class="filter-btn" data-filter="development">Development</button>
+                </div>
+                <select id="sort-select" class="sort-dropdown">
+                    <option value="default">Default Order</option>
+                    <option value="name-asc">Name (A–Z)</option>
+                    <option value="name-desc">Name (Z–A)</option>
+                </select>
+            </div>
+            <p id="no-projects-msg" class="info-text hidden">No projects match this filter.</p>
+            <table>
+                <!-- TABLE HEADER ROW -->
+                <!-- Defines column titles for the projects table -->
+                <tr>
+                    <th>Project Title</th>
+                    <th>Description</th>
+                    <th>Image</th>
+                </tr>
+                
+                <!-- FIRST PROJECT ROW -->
+                <!-- KFUPM EVENTS project with green description text -->
+                <tbody id="projects-tbody">
+                <tr data-category="design" data-name="KFUPM EVENTS">
+                <td>KFUPM EVENTS</td>
+                <td><span>A SWE206 project which is a figma designed prototype of an events management system for KFUPM clubs.</span></td>
+                <td><img src="assets/images/project1.png" alt="Project 1 Image" loading="lazy"></td>
+                </tr>
+                <!-- SECOND PROJECT ROW -->
+                <!-- Disney Movies Recipes project with orange description text -->
+                <tr data-category="development" data-name="Disney Movies Recipes">
+                <td>Disney Movies Recipes</td>
+                <td><span> A high school Computer Science project using NSB AppStudio that involves grouping recipes for Disney movies.</span></td>
+                <td><img src="assets/images/project2.png" alt="Project 2 Image"  loading="lazy"></td>
+            </tr>
+            </tbody>
+            </table>
+        </section>
+        <!-- GITHUB SECTION HERE -->
+        <section id="GitHub">
+            <h2>GitHub Repositories</h2>
+            <p>Enter a GitHub username to explore their public repositories.</p>
+            <div class="github-controls">
+                <input type="text" id="github-username" placeholder="Enter GitHub username">
+                <button id="fetch-repos-btn" class="btn-primary">Fetch Repos</button>
+            </div>
+            <div id="github-loading" class="loading-container hidden">
+                <div class="loading-spinner"></div>
+                <p>Loading repositories...</p>
+            </div>
+            <p id="github-error" class="error-text"></p>
+            <div id="github-results" class="github-results"></div>
+        </section>
+        <section id="ContactMe">
+        <!-- CONTACT FORM SECTION -->
+        <!-- Form for visitors to send me messages -->
+        <!-- Includes fields for name, email, and message -->
+            <h2>Contact Me</h2>
+            <p>
+                To contact me, please fill out the form below.
+            </p>
+                <form id="contact-form" novalidate>
+                <!-- NAME INPUT FIELD -->
+                <div class="form-group">
+                    <label for="contact-name">Name:</label>
+                    <input type="text" id="contact-name" name="name">
+                    <span class="error-text" id="name-error"></span>
+                </div>
+                <!-- EMAIL INPUT FIELD -->
+                <div class="form-group">
+                    <label for="contact-email">Email:</label>
+                    <input type="email" id="contact-email" name="email">
+                    <span class="error-text" id="email-error"></span>
+                </div>
+                <!-- MESSAGE TEXTAREA -->
+                <div class="form-group">
+                    <label for="contact-message">Message:</label>
+                    <textarea id="contact-message" name="message"></textarea>
+                    <span class="error-text" id="message-error"></span>
+                </div>
+                <!-- SUBMIT BUTTON -->
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">Submit</button>
+                    <button type="button" id="clear-form-btn" class="btn-secondary">Clear</button>
+                </div>
+                <!-- SUCCESS MESSAGE -->
+                <p id="form-success" class="success-text"></p>
+            </form>
+        </section>
+        </main>
+        <script src="js/script.js" defer></script>
+    </body>
+</html>
