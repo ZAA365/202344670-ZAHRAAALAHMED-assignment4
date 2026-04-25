@@ -473,7 +473,30 @@ body.dark-mode .form-group label { color: #f5f5f7; }
 body.dark-mode .form-group input, body.dark-mode .form-group textarea { background-color: #1a1a1a; border-color: #444; color: #ffffff; }
 body.dark-mode .form-group input.invalid, body.dark-mode .form-group textarea.invalid { border-color: #ff3b30; box-shadow: 0 0 0 4px rgba(255, 59, 48, 0.15); }
 body.dark-mode .btn-secondary { color: #86868b; border-color: #444; }
+/* ===== ASSIGNMENT 4 DARK MODE ADDITIONS ===== */
+body.dark-mode .save-repo-btn {
+    border-color: #c89ef7 !important;
+    color: #c89ef7 !important;
+    background: transparent !important;
+}
 
+body.dark-mode .save-repo-btn:hover {
+    background: rgba(200, 158, 247, 0.1) !important;
+}
+
+body.dark-mode #saved-repos-list a {
+    color: #c89ef7 !important;
+}
+
+body.dark-mode #export-data-btn {
+    background: #1a1a1a;
+    border-color: #444;
+    color: #f5f5f7;
+}
+
+body.dark-mode .char-counter {
+    color: #86868b !important;
+}
 /* ----- RESPONSIVE DESIGN - APPLE FIRST ----- */
 /* Apple's site looks great on all devices, so I tried to do the same */
 @media (max-width: 768px) {

@@ -139,14 +139,6 @@ function updateAuthUI(loggedIn, user = '') {
         authBtn.textContent = 'Login';
     }
 }
-function updateAuthUI(loggedIn, user) {
-    if (loggedIn) {
-        authBtn.textContent = 'Logout (' + user + ')';
-        authPanel.classList.add('hidden');
-    } else {
-        authBtn.textContent = 'Login';
-    }
-}
 
 // --- 6. PROJECT FILTER & SORT ---
 function initProjectFilters() {
