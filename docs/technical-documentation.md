@@ -14,6 +14,7 @@
 - `css/styles.css` - All styling with theme support and animations
 - `js/script.js` - Theme toggle, greeting logic, and localStorage
 - `assets/images/` - Project screenshots
+- `presentation/demovideo` - video
 - `docs/` - Documentation files
 - `README.md` - Project preview and setup
 - `.gitignore` — Git ignore rules
@@ -23,8 +24,6 @@
 
 ### 1. GitHub API Integration
 **Endpoint used:** `https://api.github.com/users/{username}/repos?sort=updated&per_page=10`
-
----
 
 ---
 
@@ -158,7 +157,17 @@
 - Minimal use of `!important` (only on `.hidden` utility class)
 
 ---
-
+- **GitHub API Caching:** 5-minute cache using localStorage with cache key format `github-cache-{username}`
+- **Save to Favorites:** localStorage array storage with `saved-github-repos` key, prevents duplicates
+- **Character Counter:** Real-time `input` event listener, truncates at 1000 characters, color changes at limit
+- **Data Export:** JSON export with `Blob`, `URL.createObjectURL()`, timestamped filename
+- **Project Counter:** Dynamic DOM element creation if missing, updates on filter/sort
+- **Scroll to Top Button:** Fixed position, appears at 300px scroll, smooth scroll behavior
+- **Dark Mode CSS Additions:** Added `.dark-mode` styles for `.save-repo-btn`, `#saved-repos-list a`, `#export-data-btn`, `.char-counter`, `#scroll-top-btn`
+- **Cache invalidation:** Checks `Date.now() - cachedTime < 300000` (5 minutes)
+- **Export data structure:** Includes `exportDate`, `settings` (theme, savedUsername, authUser), `savedRepositories`, `visitStats`
+- **Scroll threshold:** 300px using `window.scrollY`
+---
 ## Color Themes
 
 ### Light Mode

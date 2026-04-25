@@ -126,7 +126,16 @@ Use filter buttons – see "Showing X of Y projects" appear
 | Login/Logout | Click Login button in navigation |
 | Timer | Watch timer count your visit time |
 ---
-
+- **GitHub API Caching:** Results cached for 5 minutes in localStorage with cache indicator
+- **Save to Favorites:** Users can save any GitHub repository to favorites, stored in localStorage
+- **Character Counter:** Real-time "XX/1000 characters" counter under message field, turns red at limit
+- **Data Export:** One-click export of all user data (theme, settings, saved repos, timer) as JSON file
+- **Project Counter:** Live "Showing X of Y projects" display when filtering projects
+- **Scroll to Top Button:** Appears after scrolling 300px, smooth scroll animation back to top
+- **Fixed duplicate function bug:** Removed duplicate `updateAuthUI` function from script.js
+- **Fixed export function scope:** Moved `exportUserData` outside `initContactForm` for global access
+- **Dark mode support for all new features:** Save button, export button, counter, and scroll button all support dark mode
+---
 ## AI Usage Summary
 AI tools were used to assist in:
 - Implementing the GitHub API integration with `fetch()` and error handling
