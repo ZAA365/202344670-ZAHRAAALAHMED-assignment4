@@ -389,6 +389,8 @@ function initContactForm() {
     contactMessage.addEventListener('input', updateCharCount);
     updateCharCount();
 
+
+}
     // --- EXPORT DATA FUNCTIONALITY ---
 function exportUserData() {
     const data = {
@@ -422,7 +424,6 @@ function exportUserData() {
         exportMsg.textContent = '✓ Data exported successfully!';
         setTimeout(() => { exportMsg.textContent = ''; }, 3000);
     }
-}
 }
 
 // --- 9. INITIALIZE EVERYTHING ---
@@ -466,4 +467,18 @@ document.addEventListener('DOMContentLoaded', function() {
     authUsernameInput.addEventListener('keydown', function(e) {
         if (e.key === 'Enter') handleLogin();
     });
+    // Scroll to Top Button (Innovation Feature)
+    const scrollBtn = document.getElementById('scroll-top-btn');
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 300) {
+            scrollBtn.classList.add('show');
+        } else {
+            scrollBtn.classList.remove('show');
+        }
+    });
+    if (scrollBtn) {
+        scrollBtn.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
 });

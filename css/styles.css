@@ -555,3 +555,15 @@ body.dark-mode .char-counter {
     opacity: 1;
     }
 }
+/* Scroll to Top Button */
+#scroll-top-btn.show {
+    opacity: 1;
+    visibility: visible;
+}
+#scroll-top-btn:hover {
+    background: #a310f8;
+    transform: scale(1.1);
+}
+body.dark-mode #scroll-top-btn {
+    background: #a310f8;
+}
